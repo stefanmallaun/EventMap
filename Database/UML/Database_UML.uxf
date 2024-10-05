@@ -1,0 +1,42 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>10</x><y>180</y><w>210</w><h>190</h></coordinates><panel_attributes>User
+--
+-id: int
+-firstname: varchar(20)
+-lastname: varchar(20)
+-username: varchar(20)
+-gender: char
+-password: varchar(500)
+-birthdate: Date
+-email: varchar(255)
+-fav_sports: int
+-postal_code: int 
+-is_verified: bool</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>180</y><w>210</w><h>190</h></coordinates><panel_attributes>Participation
+--
+-id: int
+-user_id: int
+-event_id: int
+-admin: bool
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>180</y><w>210</w><h>190</h></coordinates><panel_attributes>Event
+--
+-event_id: int
+-location_id: int
+-title: varchar(50)
+-description: varchar(500)
+-event_date: date
+-type_of_event: int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>450</y><w>210</w><h>190</h></coordinates><panel_attributes>Chat
+--
+-chat_id: int
+-participation_id: int
+-message: varchar(1000)
+-timestamp: dateTime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>850</x><y>180</y><w>220</w><h>190</h></coordinates><panel_attributes>Location
+--
+-location_id: int
+-address: varchar(200)
+-latitude: GEOGRAPAHY(Point, 4326)
+-longitude: GEOGRAPAHY(Point, 4326)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=n..1</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=n..1</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>360</y><w>50</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>360</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>290</y><w>100</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>290</y><w>100</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>290</y><w>100</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element></diagram>
