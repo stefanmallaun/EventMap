@@ -34,8 +34,8 @@
 --
 -location_id: int
 -address: varchar(200)
--latitude: GEOGRAPAHY(Point, 4326)
--longitude: GEOGRAPAHY(Point, 4326)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+-latitude: POINT
+-longitude: POINT</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
 m1=n..1</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
 m1=n..1</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>290</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
 m1=1..n</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>360</y><w>50</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
