@@ -27,17 +27,15 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   final List<Marker> _markers = [];
   //WEB
-  final String apiUrl = 'http://localhost:3000/api/save-position';
-  //android
-  //final String apiUrl = 'http://10.0.2.2:3000/api/save-position'; // Update to your API endpoint
+  //final String apiUrl = 'http://localhost:3000/api/save-position';
+  //ANDROID
+  final String apiUrl = 'http://10.0.2.2:3000/api/save-position';
 
+  // Function to add marker
   void _addMarker(LatLng position) {
-    
     print('Marker added at: ${position.latitude}, ${position.longitude}');
-
+    _fetchAndSendData(position);
     
-    _sendPositionToDatabase(position);
-
     setState(() {
       _markers.add(
         Marker(
@@ -54,23 +52,58 @@ class MapSampleState extends State<MapSample> {
     });
   }
 
-  Future<void> _sendPositionToDatabase(LatLng position) async {
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, double>{
-        'latitude': position.latitude,
-        'longitude': position.longitude,
-      }),
-    );
+  // Function to get address using Nominatim (OpenStreetMap)
+  Future<String> getNominatimAddress(double latitude, double longitude) async {
+    final String url = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude';
 
-    if (response.statusCode == 200) {
-      print('Position saved successfully');
-    } else {
-      print('Failed to save position: ${response.body}');
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['display_name'] ?? 'Unknown address';  // Return the address
+      } else {
+        print('Failed to retrieve address.');
+        return 'Unknown address';
+      }
+    } catch (e) {
+      print('Error: $e');
+      return 'Unknown address';
     }
+  }
+
+  // Function to send position and address to the database
+  Future<void> _sendPositionToDatabase(LatLng position, String address) async {
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'latitude': position.latitude,
+          'longitude': position.longitude,
+          'address': address,  
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('Position and address saved successfully');
+      } else {
+        print('Failed to save position and address: ${response.body}');
+      }
+    } catch (e) {
+      print('Error sending position and address to database: $e');
+    }
+  }
+
+  // Function to fetch the address and send both position and address to the database
+  Future<void> _fetchAndSendData(LatLng position) async {
+    // Get the address first
+    String address = await getNominatimAddress(position.latitude, position.longitude);
+
+    // Then send both the position and address to the database
+    await _sendPositionToDatabase(position, address);
   }
 
   @override

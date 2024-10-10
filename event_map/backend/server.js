@@ -22,7 +22,7 @@ const pool = mysql.createPool(config);
 
 app.post('/api/save-position', async (req, res) => {
     console.log('Request body:', req.body); 
-    const {latitude, longitude } = req.body;
+    const {latitude, longitude, address} = req.body;
 
     if (!latitude || !longitude) {
         return res.status(400).json({ message: 'Address, latitude, and longitude are required' });
@@ -30,8 +30,8 @@ app.post('/api/save-position', async (req, res) => {
 
     try {
         const [result] = await pool.query(
-            'INSERT INTO locations (latitude, longitude) VALUES (POINT(?, ?), POINT(?, ?))',
-            [latitude, longitude, latitude, longitude]
+            'INSERT INTO locations (address, latitude, longitude) VALUES (?,POINT(?, ?), POINT(?, ?))',
+            [address, latitude, longitude, latitude, longitude]
         );
         res.status(200).json({ message: 'Position saved successfully', location_id: result.insertId });
     } catch (err) {
