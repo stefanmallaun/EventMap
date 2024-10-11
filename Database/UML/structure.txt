@@ -1,3 +1,6 @@
+create database eventmap;
+use eventmap;
+
 -- Create User Table
 CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,6 +16,13 @@ CREATE TABLE User (
     is_verified BOOLEAN
 );
 
+-- Create Location Table
+CREATE TABLE Location (
+    location_id INT AUTO_INCREMENT PRIMARY KEY,
+    address VARCHAR(200),
+    latitude POINT,
+    longitude POINT
+);
 -- Create Event Table
 CREATE TABLE Event (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,14 +32,6 @@ CREATE TABLE Event (
     event_date DATE,
     type_of_event INT,
     FOREIGN KEY (location_id) REFERENCES Location(location_id)
-);
-
--- Create Location Table
-CREATE TABLE Location (
-    location_id INT AUTO_INCREMENT PRIMARY KEY,
-    address VARCHAR(200),
-    latitude POINT,
-    longitude POINT
 );
 
 -- Create Participation Table
