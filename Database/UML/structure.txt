@@ -1,0 +1,52 @@
+-- Create User Table
+CREATE TABLE User (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(20),
+    lastname VARCHAR(20),
+    username VARCHAR(20),
+    gender CHAR(1),
+    password VARCHAR(500),
+    birthdate DATE,
+    email VARCHAR(255),
+    fav_sports INT,
+    postal_code INT,
+    is_verified BOOLEAN
+);
+
+-- Create Event Table
+CREATE TABLE Event (
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    location_id INT,
+    title VARCHAR(50),
+    description VARCHAR(500),
+    event_date DATE,
+    type_of_event INT,
+    FOREIGN KEY (location_id) REFERENCES Location(location_id)
+);
+
+-- Create Location Table
+CREATE TABLE Location (
+    location_id INT AUTO_INCREMENT PRIMARY KEY,
+    address VARCHAR(200),
+    latitude POINT,
+    longitude POINT
+);
+
+-- Create Participation Table
+CREATE TABLE Participation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    event_id INT,
+    admin BOOLEAN,
+    FOREIGN KEY (user_id) REFERENCES User(id),
+    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+);
+
+-- Create Chat Table
+CREATE TABLE Chat (
+    chat_id INT AUTO_INCREMENT PRIMARY KEY,
+    participation_id INT,
+    message VARCHAR(1000),
+    timestamp DATETIME,
+    FOREIGN KEY (participation_id) REFERENCES Participation(id)
+);
