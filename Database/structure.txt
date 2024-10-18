@@ -1,7 +1,6 @@
 create database eventmap;
 use eventmap;
 
--- Create User Table
 CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(20),
@@ -11,10 +10,11 @@ CREATE TABLE User (
     password VARCHAR(500),
     birthdate DATE,
     email VARCHAR(255),
-    fav_sports INT,
+    fav_sports JSON,
     postal_code INT,
     is_verified BOOLEAN
 );
+
 
 -- Create Location Table
 CREATE TABLE Location (
