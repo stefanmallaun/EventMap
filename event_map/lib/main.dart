@@ -4,10 +4,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const MapPage());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MapPage extends StatelessWidget {
+  const MapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,7 @@ class MapSampleState extends State<MapSample> {
   String _description = '';
   DateTime? _eventDate;
   int _eventType = 1; 
+  int _selectedIndex = 1; 
 
   
   void _addMarker(LatLng position) {
@@ -154,13 +155,13 @@ class MapSampleState extends State<MapSample> {
 
   // Pop-up window to input Event-data
   void _addEventData(LatLng position) {
-  DateTime? selectedDate = _eventDate; // Local variable for date within dialog
+  DateTime? selectedDate = _eventDate; 
 
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setDialogState) { // StatefulBuilder for live updates in dialog
+        builder: (BuildContext context, StateSetter setDialogState) {
           return AlertDialog(
             title: const Text('Event Daten eingeben'),
             content: Form(
@@ -207,7 +208,7 @@ class MapSampleState extends State<MapSample> {
                               lastDate: DateTime(2101),
                             );
                             if (date != null) {
-                              // Update dialog UI using setDialogState
+                              
                               setDialogState(() {
                                 selectedDate = date;
                               });
@@ -241,7 +242,7 @@ class MapSampleState extends State<MapSample> {
               TextButton(
                 child: const Text('Abbrechen'),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close dialog
+                  Navigator.of(context).pop(); 
                 },
               ),
               TextButton(
@@ -250,10 +251,10 @@ class MapSampleState extends State<MapSample> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     setState(() {
-                      _eventDate = selectedDate; // Save the selected date to state
+                      _eventDate = selectedDate;
                     });
-                    Navigator.of(context).pop(); // Close the dialog
-                    _addMarker(position); // Add the marker and save the data
+                    Navigator.of(context).pop(); 
+                    _addMarker(position); 
                   }
                 },
               ),
@@ -266,12 +267,17 @@ class MapSampleState extends State<MapSample> {
 }
 
 
+void _onBarIconTapped(int index) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage())
+    );
+  }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OpenStreetMap Sample'),
+        title: const Text('EVENT MAP'),
       ),
       body: FlutterMap(
         options: MapOptions(
@@ -290,6 +296,97 @@ class MapSampleState extends State<MapSample> {
             markers: _markers,
           ),
         ],
+      ),
+
+  
+  bottomNavigationBar: BottomNavigationBar(
+    items: const <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.map),
+        label: 'Map',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.chat),
+        label: 'Chat',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.account_box_sharp),
+        label: 'Profile',
+      ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onBarIconTapped,
+        
+      ),
+    );
+    
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            
+          },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+
+class ChatPage extends StatelessWidget {
+  const ChatPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+          },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+          },
+          child: const Text('Go back!'),
+        ),
       ),
     );
   }
