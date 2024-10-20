@@ -1,0 +1,8 @@
+MediaQuery for Winow size. Recognize the window size automatically
+  -WindowSize = MediaQuery.sizeOf(context);
+  -LayoutBuilder
+Adding SafeArea
+
+GridView.builder
+gridDelegate: SilverGridDelegateWithMaxCrossAxisExtent
+

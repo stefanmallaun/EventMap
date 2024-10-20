@@ -12,7 +12,9 @@ cors = CORS(app)
 config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'P8[1W~0|IXEd',
+    #'password': 'P8[1W~0|IXEd',
+    #PW Steff
+    'password': '',
     'database': 'eventmap',
     'port': 3306,
 }
